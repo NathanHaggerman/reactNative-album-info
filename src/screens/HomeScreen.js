@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SearchBar } from "react-native-elements";
 
 const HomeScreen = ({ navigation }) => {
   const [artistDetails, setArtistDetails] = useState(null);
+  const [artistSearch, setArtistSearch] = useState("");
+  const [showButtons, setShowButtons] = useState(false);
 
   useEffect(() => {
     getArtistInfo();
@@ -11,21 +19,67 @@ const HomeScreen = ({ navigation }) => {
 
   const getArtistInfo = async () => {
     try {
+      console.log("artistSearch, " + artistSearch);
       let response = await fetch(
-        "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=the+avalanches&api_key=4a5eba2666499fb5167258597b378f84&format=json"
+        `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistSearch}&api_key=4a5eba2666499fb5167258597b378f84&format=json`
       );
       let json = await response.json();
-      setArtistDetails(json.topalbums.album);
-      // console.log(artistDetails);
+      setArtistDetails(json);
+      // console.log(artistDetails.artist.bio.summary);
     } catch (error) {
       console.error(error);
     }
   };
 
-  return artistDetails != null ? (
-    <ScrollView contentContainerStyle={styles.mainView}>
-      <Text>Hello</Text>
-      {artistDetails.map((album) => (
+  const updateSearch = (artistSearch) => {
+    setShowButtons(false);
+    setArtistSearch(artistSearch);
+    console.log(artistSearch);
+  };
+
+  return (
+    <>
+      <View>
+        <SearchBar
+          placeholder="Type Here..."
+          onChangeText={updateSearch}
+          value={artistSearch}
+        />
+      </View>
+      <View style={styles.mainView}>
+        <TouchableOpacity
+          style={styles.touchableView}
+          onPress={() => {
+            getArtistInfo();
+            setShowButtons(true);
+          }}
+        >
+          <Text style={styles.touchableText}>Search</Text>
+        </TouchableOpacity>
+        {showButtons && artistSearch !== "" && (
+          <>
+            <TouchableOpacity
+              display="none"
+              style={styles.touchableView}
+              onPress={() => {
+                getArtistInfo();
+                navigation.navigate("Biography", {
+                  biography: artistDetails.artist.bio.content,
+                });
+              }}
+            >
+              <Text style={styles.touchableText}>Biography</Text>
+            </TouchableOpacity>
+            {artistDetails && (
+              <ScrollView contentContainerStyle={styles.scrollView}>
+                {/* <Text>{artistDetails.artist.bio.content}</Text> */}
+              </ScrollView>
+            )}
+          </>
+        )}
+      </View>
+      <ScrollView contentContainerStyle={styles.mainView}>
+        {/* {artistDetails.map((album) => (
         <TouchableOpacity
           key={album.mbid != null ? album.mbid : Math.random()}
           style={styles.touchableView}
@@ -37,12 +91,9 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.touchableText}>{album.name}</Text>
           </View>
         </TouchableOpacity>
-      ))}
-    </ScrollView>
-  ) : (
-    <View>
-      <Text>Loading...</Text>
-    </View>
+      ))} */}
+      </ScrollView>
+    </>
   );
 };
 
@@ -56,7 +107,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     alignItems: "center",
-    backgroundColor: "orange",
+    backgroundColor: "#1DB954",
     borderWidth: 5,
     borderRadius: 10,
   },

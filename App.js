@@ -2,8 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { StyleSheet } from "react-native";
-
-import DetailsScreen from "./src/screens/DetailsScreen";
+import BiographyScreen from "./src/screens/BiographyScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 
 const Stack = createStackNavigator();
@@ -22,15 +21,15 @@ export default function App() {
           name="App_to_Home"
           component={HomeScreen}
           options={{
-            title: "Artist Info",
+            title: "Artist Search",
             headerTitleStyle: {
               fontWeight: "bold",
               fontSize: 30,
             },
           }}
         />
-        <Stack.Screen name="Home_to_Details" component={DetailsScreen} />
-        <Stack.Screen name="Details_to_Details" component={DetailsScreen} />
+        <Stack.Screen name="Biography" component={BiographyScreen} />
+        <Stack.Screen name="Details_to_Details" component={BiographyScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
