@@ -4,6 +4,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import BiographyScreen from "./src/screens/BiographyScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import AlbumScreen from "./src/screens/AlbumScreen";
 
 const Stack = createStackNavigator();
 
@@ -29,7 +30,7 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Biography" component={BiographyScreen} />
-        <Stack.Screen name="Details_to_Details" component={BiographyScreen} />
+        <Stack.Screen name="Albums" component={AlbumScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

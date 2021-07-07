@@ -70,11 +70,18 @@ const HomeScreen = ({ navigation }) => {
             >
               <Text style={styles.touchableText}>Biography</Text>
             </TouchableOpacity>
-            {artistDetails && (
-              <ScrollView contentContainerStyle={styles.scrollView}>
-                {/* <Text>{artistDetails.artist.bio.content}</Text> */}
-              </ScrollView>
-            )}
+            <TouchableOpacity
+              display="none"
+              style={styles.touchableView}
+              onPress={() => {
+                getArtistInfo();
+                navigation.navigate("Albums", {
+                  artist: artistSearch,
+                });
+              }}
+            >
+              <Text style={styles.touchableText}>Albums</Text>
+            </TouchableOpacity>
           </>
         )}
       </View>
