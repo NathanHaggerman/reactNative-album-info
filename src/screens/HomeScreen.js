@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SearchBar } from "react-native-elements";
 
 const HomeScreen = ({ navigation }) => {
@@ -32,7 +26,6 @@ const HomeScreen = ({ navigation }) => {
   const updateSearch = (artistSearch) => {
     setShowButtons(false);
     setArtistSearch(artistSearch);
-    console.log(artistSearch);
   };
 
   return (
@@ -83,21 +76,6 @@ const HomeScreen = ({ navigation }) => {
           </>
         )}
       </View>
-      <ScrollView contentContainerStyle={styles.mainView}>
-        {/* {artistDetails.map((album) => (
-        <TouchableOpacity
-          key={album.mbid != null ? album.mbid : Math.random()}
-          style={styles.touchableView}
-          onPress={() => {
-            navigation.navigate("Home_to_Details", { album: album.name });
-          }}
-        >
-          <View>
-            <Text style={styles.touchableText}>{album.name}</Text>
-          </View>
-        </TouchableOpacity>
-      ))} */}
-      </ScrollView>
     </>
   );
 };
