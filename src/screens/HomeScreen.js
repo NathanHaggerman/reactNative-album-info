@@ -19,13 +19,11 @@ const HomeScreen = ({ navigation }) => {
 
   const getArtistInfo = async () => {
     try {
-      console.log("artistSearch, " + artistSearch);
       let response = await fetch(
         `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistSearch}&api_key=4a5eba2666499fb5167258597b378f84&format=json`
       );
       let json = await response.json();
       setArtistDetails(json);
-      // console.log(artistDetails.artist.bio.summary);
     } catch (error) {
       console.error(error);
     }
