@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SearchBar } from "react-native-elements";
+
+import Styles from "./Styles";
 
 const HomeScreen = ({ navigation }) => {
   const [artistDetails, setArtistDetails] = useState(null);
@@ -37,21 +39,21 @@ const HomeScreen = ({ navigation }) => {
           value={artistSearch}
         />
       </View>
-      <View style={styles.mainView}>
+      <View style={Styles.mainView}>
         <TouchableOpacity
-          style={styles.touchableView}
+          style={Styles.touchableView}
           onPress={() => {
             getArtistInfo();
             setShowButtons(true);
           }}
         >
-          <Text style={styles.touchableText}>Search</Text>
+          <Text style={Styles.touchableText}>Search</Text>
         </TouchableOpacity>
         {showButtons && artistSearch !== "" && (
           <>
             <TouchableOpacity
               display="none"
-              style={styles.touchableView}
+              style={Styles.touchableView}
               onPress={() => {
                 getArtistInfo();
                 navigation.navigate("Biography", {
@@ -59,11 +61,11 @@ const HomeScreen = ({ navigation }) => {
                 });
               }}
             >
-              <Text style={styles.touchableText}>Biography</Text>
+              <Text style={Styles.touchableText}>Biography</Text>
             </TouchableOpacity>
             <TouchableOpacity
               display="none"
-              style={styles.touchableView}
+              style={Styles.touchableView}
               onPress={() => {
                 getArtistInfo();
                 navigation.navigate("Albums", {
@@ -71,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
                 });
               }}
             >
-              <Text style={styles.touchableText}>Albums</Text>
+              <Text style={Styles.touchableText}>Albums</Text>
             </TouchableOpacity>
           </>
         )}
@@ -79,28 +81,5 @@ const HomeScreen = ({ navigation }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  mainView: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  touchableView: {
-    marginBottom: 30,
-    width: 150,
-    height: 50,
-    alignItems: "center",
-    backgroundColor: "#1DB954",
-    borderWidth: 5,
-    borderRadius: 10,
-  },
-  touchableText: {
-    textAlign: "center",
-    paddingTop: 5,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "white",
-  },
-});
 
 export default HomeScreen;

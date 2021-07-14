@@ -1,22 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
+
+import Styles from "./Styles";
 
 const DetailsScreen = ({ route }) => {
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      {<Text style={styles.text}>{route.params.biography}</Text>}
+    <ScrollView contentContainerStyle={Styles.scrollView}>
+      {<Text style={Styles.text}>{route.params.biography}</Text>}
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontSize: 25,
-  },
-});
 
 export default DetailsScreen;

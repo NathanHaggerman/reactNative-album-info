@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text } from "react-native";
+import { Image, ScrollView, Text } from "react-native";
+
+import Styles from "./Styles";
 
 const AlbumScreen = ({ route }) => {
   console.log("route", route.params.artist);
@@ -22,17 +24,17 @@ const AlbumScreen = ({ route }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.mainView}>
+    <ScrollView contentContainerStyle={Styles.mainView}>
       {albums.map((album) => (
         <>
           <Text
             key={album.mbid != null ? album.mbid : Math.random()}
-            style={styles.text}
+            style={Styles.text}
           >
             {album.name}
           </Text>
           <Image
-            style={styles.image}
+            style={Styles.image}
             source={{
               uri: `${JSON.stringify(album.image[2])
                 .replace('{"#text":"', "")
@@ -44,32 +46,5 @@ const AlbumScreen = ({ route }) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  mainView: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  touchableView: {
-    marginBottom: 30,
-    width: 150,
-    height: 50,
-    alignItems: "center",
-    backgroundColor: "#1DB954",
-    borderWidth: 5,
-    borderRadius: 10,
-  },
-  text: {
-    textAlign: "center",
-    paddingTop: 5,
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "black",
-  },
-  image: {
-    width: 150,
-    height: 150,
-  },
-});
 
 export default AlbumScreen;
